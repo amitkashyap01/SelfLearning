@@ -2,15 +2,20 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-
+	
+	<!-- Using external properties -->
+	<context:property-placeholder location="src/main/java/myApp.properties"/>
+	
 	<!-- Each bean class must have no-argument constructor -->
-	<bean id="fruit" class="mySimpleSpringApp.model.Fruit">
+	<bean id="fruit" class="mySimpleSpringApp.model.Fruit" primary="true">
 		<property name="myName" value="Mango"></property>
 	</bean>
 
-	<bean id="vegetables" class="mySimpleSpringApp.model.Vegetables">
+	<bean id="vegetables" class="mySimpleSpringApp.model.Vegetables" primary="true">
 		<constructor-arg index="0" value="Potato"></constructor-arg>
 	</bean>
 
@@ -36,11 +41,47 @@
 
 	<bean id="fruitWithPNamespace"
 		class="mySimpleSpringApp.model.Fruit" p:myName="Avacado" />
-		
-		
+
+
 	<bean id="whatsInMealBean" class="mySimpleSpringApp.model.Meal">
 		<property name="fruit" ref="fruit"></property>
 		<property name="vegetables" ref="vegetables"></property>
 	</bean>
 
+	<bean id="whatsInMealBeanUsingConstructor" class="mySimpleSpringApp.model.Meal">
+		<constructor-arg index="0" ref="fruit"></constructor-arg>
+		<constructor-arg index="1" ref="vegetables"></constructor-arg>
+		<constructor-arg index="2" ref="grain"></constructor-arg>
+		<constructor-arg index="3" ref="meat"></constructor-arg>
+	</bean>
+
+
+	<bean id="grain" class="mySimpleSpringApp.model.Grain">
+		<property name="definition" value="${def-grain}"></property>
+	</bean>
+	
+	
+	<bean id="mealOuterClass" class="mySimpleSpringApp.model.Meal">
+		<property name="fruit">
+			<bean id="innerApplClass" class="mySimpleSpringApp.model.Apple">
+				<property name="name" value="apple"></property>
+				<property name="definition" value="Hi I am an apple."></property>
+			</bean>
+		</property>
+	</bean>
+	
+	
+	<bean id="meat" class="mySimpleSpringApp.model.Meat"
+		init-method="initMethod"
+		destroy-method="destroyMethod">
+		<property name="description" value="Hi. I am Meat."></property>
+	</bean>
+	
+	
+	<bean id="mealAutoWired" class="mySimpleSpringApp.model.Meal" autowire="byType"></bean>
+	
+	<bean id="mealAutoWiredByName" class="mySimpleSpringApp.model.Meal" autowire="byName"></bean>
+	
+	<bean id="mealAutoWiredConstructor" class="mySimpleSpringApp.model.Meal" autowire="constructor"></bean>
+	
 </beans>
