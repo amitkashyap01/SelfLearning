@@ -1,19 +1,17 @@
 package com.springdatademo;
 
-
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.springdatademo.dao.CircleDaoImpl;
 import com.springdatademo.model.Circle;
 
-@SpringBootApplication
+
 public class SpringDataDemoApplication {
 
 	public static void main(String[] args) {
 		
-		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("appContext.xml");
 		
 		CircleDaoImpl circleDaoImpl = applicationContext.getBean("circleDaoImpl", CircleDaoImpl.class);
 

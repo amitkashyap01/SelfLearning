@@ -12,6 +12,7 @@ import mySimpleSpringApp.model.Vegetables;
 public class AppStarter {
 	public static void main(String args[]) {
 		ApplicationContext applicationContext = new FileSystemXmlApplicationContext("appContext.xml");
+		
 
 
 		// Below are the 2ways to get bean from Spring application container
