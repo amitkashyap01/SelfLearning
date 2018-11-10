@@ -1,10 +1,29 @@
 package com.springdatademo.model;
 
+
 public class FoodGroup {
 	
 	int id;
 	String name;
 	String description;
+	
+	public FoodGroup() {
+		
+	}
+	
+	/**
+	 * @param id
+	 * @param name
+	 * @param description
+	 */
+	public FoodGroup(int id, String name, String description) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+	}
+	
+	
 	/**
 	 * @return the id
 	 */
@@ -41,11 +60,8 @@ public class FoodGroup {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
+	
+	public String talkAboutYourSelf() {
 		return "FoodGroup [id=" + id + ", name=" + name + ", description=" + description + "]";
 	}
 	

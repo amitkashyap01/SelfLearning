@@ -4,16 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 import com.springdatademo.model.Circle;
 
-@Component
 public class CircleDaoImpl {
 	
 	@Autowired
@@ -63,9 +59,12 @@ public class CircleDaoImpl {
 
 	}
 
+	
+	/*
 	//Using JdbcTemplate
 	public int getCircleCount() {
 		String sql = "select count(*) from circle";
+		return 0;
 		return jdbcTemplate.queryForObject(sql, Integer.class);
 
 	}
@@ -89,7 +88,7 @@ public class CircleDaoImpl {
 		
 		return jdbcTemplate.query(sql, new CircleMapper());
 	}
-	
+	*/
 	
 	public DataSource getDataSource() {
 		return dataSource;
