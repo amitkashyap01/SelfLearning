@@ -1,15 +1,19 @@
 package com.springdatademo.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,10 +23,17 @@ import com.springdatademo.model.FoodGroup;
 @Repository("foodGroupDAO")
 public class FoodGroupDAO {
 
-	private NamedParameterJdbcTemplate jdbcTemplate;
+	private NamedParameterJdbcTemplate namedJdbcTemplate;
+	
+	private JdbcTemplate jdbcTemplate;
+	
+	private SimpleJdbcInsert simpleJdbcInsert;
+	
+	private SimpleJdbcCall procedureReadFoodGroup;
+	
 
 	public List<FoodGroup> getAllFoodGroup(){
-		return jdbcTemplate.query("select * from foodgroups", new FoodGroupRowMapper());
+		return namedJdbcTemplate.query("select * from foodgroups", new FoodGroupRowMapper());
 	}
 
 	public List<FoodGroup> getFoodGroupByName(String foodGroup){
@@ -30,7 +41,7 @@ public class FoodGroupDAO {
 		mapSqlParameterSource.addValue("groupName", foodGroup);
 		
 		
-		return jdbcTemplate.query("select * from foodgroups where name=:groupName", mapSqlParameterSource, new FoodGroupRowMapper());
+		return namedJdbcTemplate.query("select * from foodgroups where name=:groupName", mapSqlParameterSource, new FoodGroupRowMapper());
 	}
 	
 	
@@ -39,7 +50,7 @@ public class FoodGroupDAO {
 		mapSqlParameterSource.addValue("id", foodGroupId);
 		
 		
-		return jdbcTemplate.queryForObject("select * from foodgroups where id=:id", mapSqlParameterSource, new FoodGroupRowMapper());
+		return namedJdbcTemplate.queryForObject("select * from foodgroups where id=:id", mapSqlParameterSource, new FoodGroupRowMapper());
 	}
 	
 	public Boolean addFoodGroup(FoodGroup foodGroup){
@@ -47,7 +58,7 @@ public class FoodGroupDAO {
 		
 		BeanPropertySqlParameterSource mapSqlParameterSource = new BeanPropertySqlParameterSource(foodGroup);
 		
-		int noOfRowAffected = jdbcTemplate.update("insert into foodgroups values(:id, :name, :description)", mapSqlParameterSource);
+		int noOfRowAffected = namedJdbcTemplate.update("insert into foodgroups values(:id, :name, :description)", mapSqlParameterSource);
 		
 		if(noOfRowAffected == 1)
 		{
@@ -65,7 +76,7 @@ public class FoodGroupDAO {
 		
 		BeanPropertySqlParameterSource mapSqlParameterSource = new BeanPropertySqlParameterSource(foodGroup);
 		
-		int noOfRowAffected = jdbcTemplate.update("update foodgroups set name=:name, description=:description where "
+		int noOfRowAffected = namedJdbcTemplate.update("update foodgroups set name=:name, description=:description where "
 				+ "id=:id", mapSqlParameterSource);
 		
 		if(noOfRowAffected == 1)
@@ -84,7 +95,7 @@ public class FoodGroupDAO {
 		MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
 		mapSqlParameterSource.addValue("id", foodGroupId);
 		
-		int noOfRowAffected = jdbcTemplate.update("delete from foodgroups where id=:id", mapSqlParameterSource);
+		int noOfRowAffected = namedJdbcTemplate.update("delete from foodgroups where id=:id", mapSqlParameterSource);
 		
 		if(noOfRowAffected == 1)
 		{
@@ -104,24 +115,67 @@ public class FoodGroupDAO {
 			
 		SqlParameterSource[] batchParams = SqlParameterSourceUtils.createBatch(foodGroupList.toArray());
 		
-		numberOfAffectedRows = jdbcTemplate.batchUpdate("insert into foodgroups values(:id, :name, :description)", batchParams);
+		numberOfAffectedRows = namedJdbcTemplate.batchUpdate("insert into foodgroups values(:id, :name, :description)", batchParams);
 		
 		return numberOfAffectedRows;
 	}
 	
+	
+	/*******Using SimpleJdbcInsert************/
+	
+	
+	public int createFoodGroupUsingSimpleJdbcInsert(FoodGroup foodGroup) {
+		int noOfRowsAffected = 0;
+		
+		SqlParameterSource parameterSource = new BeanPropertySqlParameterSource(foodGroup);
+		
+		noOfRowsAffected = simpleJdbcInsert.execute(parameterSource);
+		
+		return noOfRowsAffected;
+	}
+	
+	
+	public FoodGroup readFoodGroupUsingSimpleJdbcCall(int foodGroupId) {
+		MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+		mapSqlParameterSource.addValue("id_in", foodGroupId);
+		
+		Map<String, Object> result = procedureReadFoodGroup.execute(mapSqlParameterSource);
+		
+		
+		FoodGroup out = new FoodGroup();
+		
+		out.setName((String) result.get("out_name"));
+		out.setDescription((String) result.get("out_description"));
+		
+		
+		return out;
+		
+	}
+	
+	
+	public int countFoodGroups() {
+		return jdbcTemplate.queryForObject("select count(*) from foodgroups", Integer.class);
+	}
+	
 	/**
-	 * @return the jdbcTemplate
+	 * @return the namedJdbcTemplate
 	 */
-	public NamedParameterJdbcTemplate getJdbcTemplate() {
-		return jdbcTemplate;
+	public NamedParameterJdbcTemplate getnamedJdbcTemplate() {
+		return namedJdbcTemplate;
 	}
 
 	/**
-	 * @param jdbcTemplate the jdbcTemplate to set
+	 * @param namedJdbcTemplate the namedJdbcTemplate to set
 	 */
 	@Autowired
-	public void setJdbcTemplate(DataSource dataSource) {
-		this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+	public void setNamedJdbcTemplate(DataSource dataSource) {
+		this.namedJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+		
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		
+		this.simpleJdbcInsert = new SimpleJdbcInsert(dataSource).withTableName("foodgroups");
+		
+		this.procedureReadFoodGroup = new SimpleJdbcCall(dataSource).withProcedureName("procedureName");
 	}
 
 

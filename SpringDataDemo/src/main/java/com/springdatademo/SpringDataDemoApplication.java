@@ -49,6 +49,9 @@ public class SpringDataDemoApplication {
 			//dao.removeFoodGroup(6);
 
 
+			/*** use of batch update ***/
+
+			/*
 			FoodGroup newFoodGroup1 = new FoodGroup(6, "NewFoodGroup1","1 Description for the new Food Group");
 			FoodGroup newFoodGroup2 = new FoodGroup(7, "NewFoodGroup2","2 Description for the new Food Group");
 			FoodGroup newFoodGroup3 = new FoodGroup(8, "NewFoodGroup3","3 Description for the new Food Group");	
@@ -64,6 +67,16 @@ public class SpringDataDemoApplication {
 
 			for(int i : noOfRowsAffected)
 				System.out.println("No of row updated: "+i);
+
+			 */
+
+			//Using SimpleJdbcInsert
+			//			FoodGroup newFoodGroup1 = new FoodGroup(6, "NewFoodGroup1","1 Description for the new Food Group");
+			//			System.out.println("No of rows affected: "+ dao.createFoodGroupUsingSimpleJdbcInsert(newFoodGroup1));
+			
+			
+			System.out.println("No of rows: "+dao.countFoodGroups());
+
 
 		}catch (DataAccessException e) {
 			System.out.println("Database Exception Occured. Message: "+e.getMessage());
