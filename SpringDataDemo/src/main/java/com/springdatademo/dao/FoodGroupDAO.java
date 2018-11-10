@@ -5,16 +5,18 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.springdatademo.mapper.FoodGroupRowMapper;
 import com.springdatademo.model.FoodGroup;
 
-@Component("foodGroupDAO")
+@Repository("foodGroupDAO")
 public class FoodGroupDAO {
 
 	private NamedParameterJdbcTemplate jdbcTemplate;
@@ -92,6 +94,19 @@ public class FoodGroupDAO {
 			System.out.println("Deletion Failed.");
 		
 		return response;
+	}
+	
+	// With this Transactional annotation, this method will treat each sql as transaction. If any of the 
+	// transaction fails, it will rollback all the update made in database by calling this method.
+	@Transactional("myTransactionManager")
+	public int[] bulkInsertFoodGroup(List<FoodGroup> foodGroupList) {
+		int[] numberOfAffectedRows = null;
+			
+		SqlParameterSource[] batchParams = SqlParameterSourceUtils.createBatch(foodGroupList.toArray());
+		
+		numberOfAffectedRows = jdbcTemplate.batchUpdate("insert into foodgroups values(:id, :name, :description)", batchParams);
+		
+		return numberOfAffectedRows;
 	}
 	
 	/**
