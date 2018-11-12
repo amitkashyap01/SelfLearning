@@ -1,0 +1,31 @@
+In Spring.xml, below tags enable annotation on the registered beans in application context i.e. bean should be defined in Spring.xml
+
+<context:annotation-config/>
+
+while <context:component-scan> does the similar thing but it can discover the bean through scan.
+
+e.g. <context:component-scan base-package="com.xxx" />
+
+https://stackoverflow.com/questions/7414794/difference-between-contextannotation-config-vs-contextcomponent-scan
+
+
+-------
+   
+Spring Bean Scopes
+
+1) Singleton: Single Instance per IoC Container (Default scope)
+2) Prototype: Multiple instances per IoC container
+3) Request: One instance per HTTP request
+4) Session: One instance per HTTP session
+5) Global Session: One instance per global HTTP session (portlet based web application)
+
+
+-------
+
+Type of Auto-wiring
+
+1) byType
+2) byName
+3) constructor
+4) No  (This is default)
+5) Default 

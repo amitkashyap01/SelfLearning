@@ -1,0 +1,21 @@
+Spring MVC:
+
+	- Based on the Front Controller Pattern (DispatcherServlet)
+	- Spring Workflow:
+	HTTP Request -> DispatcherServlet (Front Controller: Inherit HttpServlet Class) -> Custom Controller -> Return Model -> View Rendered
+
+	
+Components of Spring MVC 
+
+	- Configure web.xml (A place where we define <servlet /> and <servlet-mapping />
+	- Configure our servlet config
+	- Create Controller
+	- Create View
+	
+
+	
+- Depedencies
+	spring-webmvc
+	javax-servlet-api
+	javax-servlet-jstl
+	
