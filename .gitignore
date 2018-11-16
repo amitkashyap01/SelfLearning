@@ -2,3 +2,5 @@
 /Servers/
 .recommenders/
 SpringCore/target/
+SpringMVCDemo/target/
+SpringDataDemo/target/

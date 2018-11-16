@@ -1,0 +1,10 @@
+Maven is developed in Java.
+
+mvn help:system
+
+
+To create a new maven project
+mvn archetype:generate -DarchetypeArtifactId=maven-archetype-quickstart
+
+
+

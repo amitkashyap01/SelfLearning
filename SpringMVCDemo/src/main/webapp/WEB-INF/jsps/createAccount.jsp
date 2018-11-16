@@ -17,7 +17,7 @@
 </style>
 </head>
 <body>
-	<form:form modelAttribute="aNewAccount">
+	<form:form modelAttribute="aNewAccount" method="POST" action="doCreate.html">
 		
 		<table>
 			<tr>

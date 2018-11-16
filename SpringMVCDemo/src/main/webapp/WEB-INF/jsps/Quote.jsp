@@ -7,6 +7,8 @@
 <title>My Spring MVC Demo</title>
 </head>
 <body>
-	<p>${randomQuote}</p>
+	<h2>The Quote is: </h2><p>${randomQuote}</p>
+	
+	<h2>User: </h2> <p>${userName}</p>
 </body>
 </html>
