@@ -5,22 +5,26 @@
 	<groupId>com.springlearn</groupId>
 	<artifactId>SpringMVCDemo</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.1-SNAPSHOT</version>
+
 	<name>SpringMVCDemo Maven Webapp</name>
 	<url>http://maven.apache.org</url>
+
+
+	<!--The identifier of the parent POM -->
+	<parent>
+		<groupId>com.selflearning</groupId>
+		<artifactId>SpringLearningParent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
 	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>5.1.0.RELEASE</version>
 		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
