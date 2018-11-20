@@ -1,10 +1,66 @@
-Maven is developed in Java.
+POM - Project Object Model
 
-mvn help:system
-
-
-To create a new maven project
 mvn archetype:generate -DarchetypeArtifactId=maven-archetype-quickstart
 
+Super POM -> Parent POM -> pom.xml 
+mvn help:effective-pom : It computes and print out the pom that contains all the configurations from parent and super pom or central pom
+
+mvn properties : ${X} 
+	- can be mentioned anywhere like environment variable e.g. ${env.PATH}; corresponding element value ${project.version}; ${java.home}; ${settings.x}
+								
+
+surefire - It is a name of plugin which runs unit test
+
+Transitive Depedencies: Are those depedencies which comes with direct depedencies of project
+	- These are controlled with
+		- Depedencency Mediation - (Nearest Defintion Algorithm) Uses the version which is nearest version to the root of the depedencies tree
+		- Depedencency Management with artifact versioning
+		- Depedencency Scope  (compile - Default, provided, runtime, test, system 
+		- Depedencency Exclusion
+		- Optional Depedencency
+		
+
+In pom.xml, we can specify <repositories>
+								<repository>
+								</repository>
+							</repositories>
+			This will tell the maven to fetch depedencies from this repository..
+			
+			
+By using following maven command, we can install a jar in maven repository (.m2) which we can use a depedency later on in our pom.xml
+mvn install:install-file -Dfile=/users/amit/downloads/image-editor.jar -Dgroupid=com.mycompany -DartifactId=image-editor -Dversion=1.2.3 -Dpackaging=jar
 
 
+There are 2 types of artifacts : 
+	1) Release Artifact: Consider to be stable and are downloaded from remote repository only ONCE
+	2) Snapshot Artifact: Still under development and by convention has SNAPSHOT in the name. Maven downloads artifact if this is older than the configured snapshot interval.
+	
+	
+
+
+Each maven phase executes a Plugin Goal which helps project to build
+
+There are 3 builtin life cycles in Maven
+	- Default (which deals with building and deploying the projects)
+	- Clean
+	- Site (Manages project site documentation like api documentation)
+
+Each stage of a life cycle is represented by a phase
+
+Default Life Cycle Phases:
+	- Validate (make sure that project is configured corrected and can be executed. Plugins and dependecies are downloaded and verified in this phase)
+	- Compile 
+	- Test (build the project test code and compiles)
+	- Package
+	- Integration-test
+	- Verify (verify the artifact. like code coverage etc.)
+	- Install (Copy the project artifact to local maven repository)
+	- Deploy ( copy the project artifacte to remote repository)
+	
+Clean Life Cycle Phases:
+	- Pre-clean
+	- clean
+	- post-clean
+
+
+Maven plugins are configured in pom's build section. 
