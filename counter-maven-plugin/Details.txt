@@ -1,0 +1,9 @@
+To create a plugin
+
+First create a plugin maven project using below archetype
+mvn archetype:generate -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-plugin
+
+Add Mojo class with the functionality 
+
+then build the project: mvn clean install
+then run the project  mvn com.mycompany:counter-maven-plugin:count-source-line

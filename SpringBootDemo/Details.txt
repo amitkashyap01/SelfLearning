@@ -1,0 +1,27 @@
+@EnableAutoConfiguration: 
+	- Allows configuration classes to be scanned Automatically
+	- Auto configurations can be controlled by @AutoConfigureBefore and @AutoConfigureAfter
+
+Conditional Loading
+	- @ConditionalOnClass
+	- @ConditionalOnBean
+	- @ConditionalOnProperty
+	- @ConditionalOnMissingBean
+	
+Properties
+	- @EnableConfigurationProperties
+	- Can be always be overridden
+
+Configuring Spring
+	- Property Based Configurations (application.properties or application.yml)
+	- Environment Variables
+	- Command-line injections
+	- Cloud Configurations (config server, vault, consul)
+	- Bean Configuration
+		- adding bean to the default application class
+		- adding bean to separate configuration classes	
+		- importing XML-based configuration
+		- component scanning
+		
+
+ 

@@ -19,5 +19,5 @@
 	</bean>
 	
 	
-	<mvc:resources location="/resources/" mapping="/myResource/**s"></mvc:resources>
+	<mvc:resources location="/resources/" mapping="/myResource/**"></mvc:resources>
 </beans>
