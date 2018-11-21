@@ -1,0 +1,27 @@
+Eclipse Debugging
+-----------------
+	- Step Over (F6): Execute the current line and go to next line
+	- Step Into (F5): Go into method or constructor called in the current line 
+	- Step Return(F7): Return to the next line of the file from where Step Into was called
+	- Resume or Ctl+R : For the next breakpoint
+	- Ctl+R : Run to Line Shortcut
+	
+	
+	
+Stack Frame
+
+- Highlight the Java expression and inspect (Ctrl + Shift + I)
+
+- Code Inspect or Content Inspect: (Any java expression) : Goto Window -> 
+- Watch Expression: 
+- Display (Ctl+Shift+R	
+
+Atl-Shift-Up: Select valid expression that encloses current selection
+
+
+Java Exception Breakpoint: Go to Run -> Add Java Exception Breakpoint : This will get the Debugger stop at the line from where the exception is coming.
+
+To go back to previous lines during debugging....select the line and click on Drop to Frame icon
+
+
+Ctrl+Shift+O for importing the packagess
