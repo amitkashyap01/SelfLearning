@@ -26,6 +26,8 @@
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
     <maven.version>3.3.9</maven.version>
+    <!-- below user.name is from Java JVM -->
+    <build.user>${user.name}</build.user>
   </properties>
 
   <dependencies>
@@ -130,6 +132,19 @@
           <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
         </configuration>
       </plugin>
+      
+      <plugin>
+      	<groupId>org.apache.maven.plugins</groupId>
+      	<artifactId>maven-jar-plugin</artifactId>
+      
+      	<configuration>
+      		<archive>
+      			<manifestEntries>
+      				<Build-by>${build.user}</Build-by>
+      			</manifestEntries>
+      		</archive>
+      	</configuration>
+      </plugin>
     </plugins>
   </build>
 
@@ -137,6 +152,7 @@
     <profile>
       <id>run-its</id>
       <build>
+      
 
         <plugins>
           <plugin>
@@ -170,6 +186,13 @@
           </plugin>
         </plugins>
       </build>
+    </profile>
+    
+    <profile>
+    	<id>MyCustomProfile</id>
+    	<properties>
+    		<build.user>CustomUser</build.user>
+    	</properties>
     </profile>
   </profiles>
 </project>

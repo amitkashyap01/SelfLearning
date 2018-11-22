@@ -64,3 +64,10 @@ Clean Life Cycle Phases:
 
 
 Maven plugins are configured in pom's build section. 
+---
+
+To create a archetype for an exisitng project...go to the root folder of that project and type the below command
+mvn archetype:create-from-project
+
+Maven buld profile can be activated using -P CLI option.
+
