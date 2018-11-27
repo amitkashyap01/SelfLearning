@@ -1,0 +1,22 @@
+[
+	{
+		"name":"Oxford",
+		"number":"R1",
+		"bedInfo":"B1"
+	},
+	{	
+		"name":"Raman",
+		"number":"R2",
+		"bedInfo":"B2"
+	},
+	{	
+		"name":"Saman",
+		"number":"R3",
+		"bedInfo":"B4"
+	},
+	{	
+		"name":"Aman",
+		"number":"R4",
+		"bedInfo":"B4"
+	}
+]

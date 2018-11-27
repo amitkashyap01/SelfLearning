@@ -24,4 +24,65 @@ Configuring Spring
 		- component scanning
 		
 
+---
+
+Embedded Tomcat
+Slf4J is default logger which comes with spring-boot-starter-web
+Also logback and JBoss loggin
+
+Spring MVC
+SnakeYAML
+Validators (javax and hibernate)
+
  
+ 
+------
+Full list of the embedded server properties can be found at below location
+org.springframework.boot.autoconfigure.web.ServerProperties
+
+
+----
+Compression
+	- server.compressoin.enabled=true
+	- Response must be 2048 bytes to compress by default
+	- Default response types of text/html, text/xml, text/plain, text/css will be compressed by default
+	
+---
+TLS/SSL
+	- Native SSL support via property management
+	- Generate keystore in resource/ folder.
+		keytool -genkey -keyalg RSA -alias linkedin -keystore keystore.jks -storepass mypassword -validity 4000 -keysize 2048
+	- Below are the properties to enable SSL with above generated keystore
+		server.ssl.key-store: classpath:keystore.jks
+		server.ssl.key-store-password: password
+		server.ssl.key-store-type: JKS
+		server.ssl.key-alias: linkedin
+		server.ssl.key-password: password
+		
+---
+DevTools
+	- Allows reloading the application context while the application is running
+	- Triggered from classpath changes
+	
+---
+Spring Boot JAR features
+	- Default behavior is jar packaging
+	- Produces a "Fat Jar" means it contains all the dependent jars
+	- Executable
+	- Registrable with systemd or init.d which makes it suitable for cloud
+	
+
+---
+CommandLineRunner Interface
+	- Provides access to application arguments
+	- Runs a simple (or complex) set of tasks
+	- Can be used standalone or with a running application
+	- Implement a single run method
+
+ApplicationRunner Interface
+	- Works the exact same way as CommanLineRunner
+	- Simple-run method
+	- Access to application arguments
+
+
+

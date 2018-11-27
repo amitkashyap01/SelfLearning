@@ -7,3 +7,15 @@ Add Mojo class with the functionality
 
 then build the project: mvn clean install
 then run the project  mvn com.mycompany:counter-maven-plugin:count-source-line
+
+
+
+----
+
+mvn archetype is a template for generate a maven project using existing tempalte
+
+mvn archetype:generate: List all the available archetypes from maven central repository
+
+mvn archetype:generate -Dfilter=spring will filter all the archetypes with the name spring in it
+
+mvn archetype:generate -DarchetypeGroupId="" -DarchetypeArtifactId="" --- If we know the archetype details, we can provide here
