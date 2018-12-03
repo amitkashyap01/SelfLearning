@@ -1,0 +1,49 @@
+Thread executes a task (modelled by Runnable interface) in a special context
+
+The fundamental notion of race condition is when different thead is trying to read/write the same variable at the same time.
+
+--
+
+The Runnable pattern
+
+
+Thread thread = new Thread(new_instance_of_ruunable);
+// Launch a thread
+thread.start()
+
+//thread.run()  //DO NOT USE This
+
+//To stop a thread
+//thread.stop; //DO NOT USE this
+
+thread.interrupt(); // This should be used to stop a thread. It sends a signal to thread suggesting that this is the time to stop.
+
+Runnable task = () -> {
+	if(! Thread.currentThread().isInterrupted()){
+		//do the task
+	}
+};
+
+If the thread is blocked, or waiting, then corresponding method will throw an IntrupptedException
+
+The methods wait()/notify(), join() throw InterupptedException 
+
+- Producers and consumers run in their own thread
+
+- wait() and notify() are the two methods from the Object class. That means it is available in all the java objects which we create.
+
+- They are invoked on a given object
+
+- The thread executing the invocation should hold the key of that object.
+
+- So, wait() and notify() cannot be invoked outside a synchronized block.
+
+- Calling wait() releases the key help by this thread and put the current thread puts that thread in WAIT state
+
+- To only way to release a WAIT state is to call notify() and puts it in the RUNNABLE state.
+
+- notify() is the only way to release a waiting thread
+
+- If more than one threads in waiting state, the released thread is chosen randomly by notify()
+
+- There is also notifyAll() method
