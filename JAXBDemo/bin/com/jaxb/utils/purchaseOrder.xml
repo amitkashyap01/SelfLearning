@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<purchaseOrder>
+    <customer>
+        <billingAddress>
+            <city>Exampleville</city>
+            <country>USA</country>
+            <postalCode>12345</postalCode>
+            <street>123 Main Street</street>
+        </billingAddress>
+        <loyalty>SILVER</loyalty>
+        <name>John Doe</name>
+        <shippingAddress>
+            <city>Exampleville</city>
+            <country>USA</country>
+            <postalCode>12345</postalCode>
+            <street>123 Main Street</street>
+        </shippingAddress>
+    </customer>
+    <items>
+        <comment>Blue ink</comment>
+        <price>8.95</price>
+        <productName>Ballpoint Pen</productName>
+        <quantity>20</quantity>
+    </items>
+    <items>
+        <price>2.95</price>
+        <productName>Pencil</productName>
+        <quantity>10</quantity>
+    </items>
+</purchaseOrder>

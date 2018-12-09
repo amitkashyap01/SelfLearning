@@ -85,4 +85,112 @@ ApplicationRunner Interface
 	- Access to application arguments
 
 
+-----
+
+DevTools:
+	- This dependency allows a fast springboot development
+	- It automatically reload the application when there is a file changed in the classpath
+	- DevTools provides Two ClassLoader
+		- Base Class Loader: To load the jar or classes which don't change.
+		- Re-start class loader: To load the application classes..i.e. when there is a change in the application, restart class loader loads the new changed classes.
+		
+	- Static resources like (html, css etc.) don't need a restart. Because DevTools create sensible caching.
+	- If pom.xml changes, then manual restart of the app is required.
+	
+---
+
+Actuator
+	
+	Web Functionalities
+	--------------------
+	 	Health Endpoint
+	 		- Provides status of application
+	 		- Provides status of dependencies
+	 	Info Endpoint
+	 		- Provides customizable point of information
+ 		
+ 	JMX Functionalites
+ 	---------------
+	 	Beans - Provides list of the all the beans in the current environment
+	 	Env -  Provides the listing of the state of the environment
+	 	Heapdump/threaddump - Provide memory dumps
+	 	Mappings - List of web URL mappings
+	 	Metrics - Mircometer metrics (Customizable n default value)
+ 	
+ Define Exposures
+ 	management.endpoints.jmx.exposure.exclude/include
+ 	management.endpoints.web.exposure.exclude/include
+ 	management.endpoint.<id>.enabled
+ 
+ Securing Actuator
+ 	 	
+
+---
+@Autowired(required=false) //This informs Spring that if it doesn't find the matching type object, continue with the code and doesn't throw exception
+private Fruit fruit;
+
+----
+<bean id="something" class="com.Something" >
+	<qualifier value="somethingQualifier" />
+</bean>
+
+while using
+@Qualifier(value="somethingQualifier")
+or
+@Qualifier("something") //we can use Id as welll
+
+
+----
+@Required -- //It can be set on setter method to let Spring know that this is the required attribute and it should be set
+
+---
+
+@PostConstruct -- Help us setup init method.
+
+Eg.
+
+@PostConstruct
+void initMethod(){
+	//Do Something
+}
+
+--
+
+@PreDestroy -- Help us setup destroy method
+
+e.g.
+@PreDestroy
+void destroyMethod(){
+	//Do something
+}
+
+---
+
+@Component: Gereric way to represent any spring managed component
+
+@Repository: Stereotype for persistence layer (be it database or file) of application.
+
+@Service: Stereotype for service layer of a application.
+
+@Controller: 	Stereotype for presentation layer of an application. (Spring MVC apps)
+
+---
+## Custom Annotation
+
+```java
+public @interface RandomAnnotation{
+}
+
+```
+
+
+---
+
+## Java Based Configuration
+
+@Configuration: Class level annotation that make a java class to provide spring configuration
+@Bean : Mark a java method to register a spring bean.
+
+
+ApplicationContext appContext = new AnnotationConfigApplicationContext(AppConfig.class);
 
