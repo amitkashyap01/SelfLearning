@@ -2,11 +2,11 @@ Thread executes a task (modelled by Runnable interface) in a special context
 
 The fundamental notion of race condition is when different thead is trying to read/write the same variable at the same time.
 
---
+---
 
-The Runnable pattern
+### The Runnable pattern
 
-
+```java
 Thread thread = new Thread(new_instance_of_ruunable);
 // Launch a thread
 thread.start()
@@ -23,6 +23,7 @@ Runnable task = () -> {
 		//do the task
 	}
 };
+```
 
 If the thread is blocked, or waiting, then corresponding method will throw an IntrupptedException
 
@@ -84,7 +85,7 @@ Integer variable can be assigned to following literal types:
 6) Integer literals with underscore (i.e. int num = 901_12_1) - This was introduced in Java 1.7 and more
 (We should not use underscore as first or last in literal)
 
---
+---
 Character Literals
 Unicode escape sequence
 
@@ -121,16 +122,46 @@ There is one Class object for each loaded class known to the Java runtime system
 
 ---
 
-Garbage Collections:
+## Garbage Collections:
 
 Done automatically through a Java Thread called Garbage Collector
 
 This is based on following 2 hypothesis:
 
-1) Most Objects soon become unreachable
-2) References from 'old' objects to 'young' objects only exist in small numbers.
+1. Most Objects soon become unreachable
+1. References from 'old' objects to 'young' objects only exist in small numbers.
 
 2 main terms:
-	- Live Object: reachable (references by someone else)
-	- Dead Object: unreachable (not referenced from anywhere)
-	
+* Live Object: reachable (references by someone else)
+* Dead Object: unreachable (not referenced from anywhere)
+
+Note: Objects are allocated (e.g. new) in the "Heap" of java memory. Static members, class definitions(metadata) etc. are stored in "method area" (Permgen/Metaspace)
+
+Objects are alloacted in heap while primitive datatypes and reference variables are allocated to stack.
+
+
+Garbage Collection involves following steps:
+1. **Mark**: Starts from the root node of your application (main), walks the object graph, marks object graph, marks objects that are reachable as live.
+1. **Delete/Sweep**: Delete unreachable objects.
+1. **Compacting**: Compact the memory by moving around the objects and making the allocation contiguous than fragmented.
+
+### Generational Collectors
+
+Heap is divided into 2 generational collectors
+* **Young Generation** : Is a place where the new objects are created
+    * Eden Space: New Space
+    * Survivor Space From: Once Eden space is full, minor GC moves objects from eden space to here.
+    * Survivor Space To: 
+
+* **Old(Tenured) Generation**: Objects that survive for long time. E.g. cache. Objects which are survived for -XX MaxTenuringThershold in Young generation collectors, are moved to Old generation.
+
+Major GC runs throughout the Heap memory.
+
+
+jvisualvm - To view GC details
+
+JHAT (Java Heap Analyser Tool) 
+
+
+##### StringBuffer is faster and memory efficient than String. StringBuffer is mutable while String is immutable.
+

@@ -124,4 +124,73 @@ Actuator
  
  Securing Actuator
  	 	
- 		
+
+---
+@Autowired(required=false) //This informs Spring that if it doesn't find the matching type object, continue with the code and doesn't throw exception
+private Fruit fruit;
+
+----
+<bean id="something" class="com.Something" >
+	<qualifier value="somethingQualifier" />
+</bean>
+
+while using
+@Qualifier(value="somethingQualifier")
+or
+@Qualifier("something") //we can use Id as welll
+
+
+----
+@Required -- //It can be set on setter method to let Spring know that this is the required attribute and it should be set
+
+---
+
+@PostConstruct -- Help us setup init method.
+
+Eg.
+
+@PostConstruct
+void initMethod(){
+	//Do Something
+}
+
+--
+
+@PreDestroy -- Help us setup destroy method
+
+e.g.
+@PreDestroy
+void destroyMethod(){
+	//Do something
+}
+
+---
+
+@Component: Gereric way to represent any spring managed component
+
+@Repository: Stereotype for persistence layer (be it database or file) of application.
+
+@Service: Stereotype for service layer of a application.
+
+@Controller: 	Stereotype for presentation layer of an application. (Spring MVC apps)
+
+---
+## Custom Annotation
+
+```java
+public @interface RandomAnnotation{
+}
+
+```
+
+
+---
+
+## Java Based Configuration
+
+@Configuration: Class level annotation that make a java class to provide spring configuration
+@Bean : Mark a java method to register a spring bean.
+
+
+ApplicationContext appContext = new AnnotationConfigApplicationContext(AppConfig.class);
+
