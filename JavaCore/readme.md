@@ -66,6 +66,18 @@ States of the thread (Thread.State state = thread.getState())
 Note: Thread can run the thread in the state RUNNABLE.
 
 
+### How to write correct concurrent code?
+
+1. Check for race conditions
+    * They occurs on fields (not variables/parameters)
+    * 2 threads are reading/writing a given field
+1. Check for happens-before link
+    * Are the read/write volatile?
+    * Are they synchronized?
+    * If not, there is  a probable bug.
+1. Synchronized or volatile?
+     * Synchronized = atomicity
+     * Volatile = visibility
 ----
 
 Literals means any text, number or other infomration that represents value.
@@ -164,4 +176,12 @@ JHAT (Java Heap Analyser Tool)
 
 
 ##### StringBuffer is faster and memory efficient than String. StringBuffer is mutable while String is immutable.
+
+
+### Java Memory Model (JMM)
+
+JMM is a specificiation which guarantees visibility of fields (aka happens before)  amidst reordering of instructions.
+
+* **Out of order execution**: Performance driven changes done by Compiler, JVM or CPU
+* **Field Visibility**: In presence of multiple threads a.k.a concurrency 
 
