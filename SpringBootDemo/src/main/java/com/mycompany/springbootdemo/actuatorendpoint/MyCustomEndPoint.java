@@ -12,7 +12,7 @@ import lombok.Data;
 @Component
 @Endpoint(id = "mycustom-endpoint")
 public class MyCustomEndPoint {
-
+	
 	@ReadOperation
 	public SystemDetails getSystemDetails() {
 		SystemDetails details = new SystemDetails();
