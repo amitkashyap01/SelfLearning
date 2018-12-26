@@ -42,6 +42,7 @@
 		<module>SpringMVCDemo</module>
 		<module>SpringCore</module>
     <module>counter-maven-plugin</module>
+    <module>graphql</module>
   </modules>
 	
     <dependencies>

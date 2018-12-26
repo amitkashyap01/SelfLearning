@@ -32,5 +32,9 @@ public class Person {
 	}
 
 
+	public static int compareAges(Person p1, Person p2) {
+		Integer age = (Integer) p1.getAge();
+		return age.compareTo(p2.getAge()) ;
+	}
 
 }
