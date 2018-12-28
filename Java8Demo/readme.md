@@ -81,3 +81,80 @@
 	else
 		System.out.print("The avarage was not calculated. May be due to divide by Zero scenario")
 ```
+
+
+### Instant and Duration
+* Instant and Duration APIs are introduced in java 8 and they are placed in java.time package.
+
+```java
+
+		Instant start = Instant.now();
+		System.out.println("We have started the processing");
+	
+		Instant end = Instant.now();
+		
+		Duration elapsed = Duration.between(start, end);
+		
+		System.out.println("Total Elapsed Time: "+elapsed.toNanos());
+```
+
+
+### LocalDate, LocalTime and LocalDateTime
+
+```java
+		LocalDate currentDate = LocalDate.now();
+		System.out.println(currentDate);
+		
+		LocalDate specificDate = LocalDate.of(2016, 8, 16);
+		System.out.println(specificDate);
+		
+		LocalTime currentTime = LocalTime.now();
+		System.out.println(currentTime);
+		
+		LocalTime specificTime = LocalTime.of(12, 05, 24);
+		System.out.println(specificTime);
+		
+		LocalDateTime currentDT = LocalDateTime.now();
+		System.out.println(currentDT);
+		
+		LocalDateTime specificDT = LocalDateTime.of(specificDate, specificTime);
+		System.out.println(specificDT);
+```
+
+### DateTimeFormatter, DateTimeFormatterBuilder
+
+```java
+		LocalDate currentDate = LocalDate.now();
+		DateTimeFormatter df = DateTimeFormatter.ISO_DATE;
+		System.out.println(df.format(currentDate));
+
+		LocalTime currentTime = LocalTime.now();
+		DateTimeFormatter dt = DateTimeFormatter.ISO_TIME;
+		System.out.println(dt.format(currentTime));
+
+		
+		LocalDateTime currentDT = LocalDateTime.now();
+		DateTimeFormatter dtf = DateTimeFormatter.ISO_DATE_TIME;
+		System.out.println(dtf.format(currentDT));
+		
+		DateTimeFormatter f_long = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG);
+		System.out.println(f_long.format(currentDT));
+
+		DateTimeFormatter s_long = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);
+		System.out.println(s_long.format(currentDT));
+		
+		
+//		String fr_long = f_long.withLocale(Locale.FRENCH).format(currentDT);
+//		System.out.println(fr_long);
+		
+		DateTimeFormatterBuilder builder = new DateTimeFormatterBuilder()
+				.appendValue(ChronoField.MONTH_OF_YEAR)
+				.appendLiteral("-")
+				.appendValue(ChronoField.DAY_OF_MONTH)
+				.appendLiteral("-")
+				.appendValue(ChronoField.YEAR);
+		
+		DateTimeFormatter d = builder.toFormatter();
+		System.out.println(d.format(currentDT));
+
+```
