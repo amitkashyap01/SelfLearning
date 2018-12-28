@@ -29,27 +29,25 @@ If the thread is blocked, or waiting, then corresponding method will throw an In
 
 The methods wait()/notify(), join() throw InterupptedException 
 
-- Producers and consumers run in their own thread
+* Producers and consumers run in their own thread
 
-- wait() and notify() are the two methods from the Object class. That means it is available in all the java objects which we create.
+* wait() and notify() are the two methods from the Object class. That means it is available in all the java objects which we create.
 
-- They are invoked on a given object
+* They are invoked on a given object
 
-- The thread executing the invocation should hold the key of that object.
+* The thread executing the invocation should hold the key of that object.
 
-- So, wait() and notify() cannot be invoked outside a synchronized block.
+* So, wait() and notify() cannot be invoked outside a synchronized block.
 
-- Calling wait() releases the key help by this thread and put the current thread puts that thread in WAIT state
+* Calling wait() releases the key help by this thread and put the current thread puts that thread in WAIT state
 
-- To only way to release a WAIT state is to call notify() and puts it in the RUNNABLE state.
+* To only way to release a WAIT state is to call notify() and puts it in the RUNNABLE state.
 
-- notify() is the only way to release a waiting thread
+* notify() is the only way to release a waiting thread
 
-- If more than one threads in waiting state, the released thread is chosen randomly by notify()
+* If more than one threads in waiting state, the released thread is chosen randomly by notify()
 
-- There is also notifyAll() method
-
-
+* There is also notifyAll() method
 
 ---- 
 
@@ -66,6 +64,18 @@ States of the thread (Thread.State state = thread.getState())
 Note: Thread can run the thread in the state RUNNABLE.
 
 
+### How to write correct concurrent code?
+
+1. Check for race conditions
+    * They occurs on fields (not variables/parameters)
+    * 2 threads are reading/writing a given field
+1. Check for happens-before link
+    * Are the read/write volatile?
+    * Are they synchronized?
+    * If not, there is  a probable bug.
+1. Synchronized or volatile?
+     * Synchronized = atomicity
+     * Volatile = visibility
 ----
 
 Literals means any text, number or other infomration that represents value.
@@ -165,3 +175,129 @@ JHAT (Java Heap Analyser Tool)
 
 ##### StringBuffer is faster and memory efficient than String. StringBuffer is mutable while String is immutable.
 
+
+### Java Memory Model (JMM)
+
+JMM is a specificiation which guarantees visibility of fields (aka happens before)  amidst reordering of instructions.
+
+* **Out of order execution**: Performance driven changes done by Compiler, JVM or CPU
+* **Field Visibility**: In presence of multiple threads a.k.a concurrency 
+
+---
+
+#JAVA 7 
+
+###Coding Simplification
+* The diamond operator's data type only needs to be set once.
+* try-with-resources eliminates a lot of code
+```java
+	
+	//Here we have move stream declaration inside try which ensures that
+	// java will automatically takes care of closing the stream and we
+	// don't need to explicitly close the stream in finally block 
+	try(FileStream stream = new FileStream(...)){
+		...do something...
+	}catch(Exception e){
+	}
+```
+
+* Numeric literals can include underscore
+
+```java
+	int largeValue = 1_00_000;
+```
+
+* Use String values in switch statements
+* new File system API with classes Path, Paths, Files, FileSystem and more...
+* new support for dynamic languages
+
+Note: Ctrl + Alt + Down Arrow : shortcut for duplicating the line in eclipse.
+
+* Non-static blocks always run before any constructor of that. So, it can be used to initialize fields irrespective of which constructor is called
+
+```java
+ public class SomeClass{
+ 	public static ArrayList<Olive> olives;
+ 	
+ 	//Below is the non-static block
+ 	{
+ 		Sysout.out.println("This will be run before constructor");
+ 		olives = new ArrayList<>;
+ 		
+ 		olives.add (new Oliver("a1"));
+ 		olives.add (new Oliver("a2"));
+ 		
+ 		
+ 	} 
+ }
+```
+
+
+* MemberClass: A class defined within another class. This class provides further level of encapsulation. 
+* LocalClass: A class defined within a method. This can be accessible only within that method. Also, 
+* A enum class allows use to create constants which can be used throughout the application. Enum class can only have private constructor, it cannot have Public constructor.
+
+
+
+---
+
+## Collections
+### HashSet
+* A set can contains only reference of an object and only one reference of null. All the other same references will be ignored.
+* The order of members are NOT guaranteed here.
+
+### TreeSet
+* TreeSet makes sure that order of members are Guaranteed. 
+* All members need to implement Comparable interface.
+* It's a slow as compare to HashSet as it compare the new added member with all the existing member to place them in order.
+
+### LinkedList
+* Provide a way to add new member at any specific position of existing members
+* Members are ordered
+
+```java
+	LinkedList<Olive> olivesList = new LinkedList<>;
+	olivesList.add(new Olive());
+	olivesList.add(new Olive());
+	// It will add olive at index 1
+	olivesList.add(1, new Olive());
+	// It will add olive at begining of the linked list
+	olivesList.addFirst(new Olive());
+	olivesList.add(new Olive());
+	
+```
+
+* LinkedList implements Queue interface. Queue interface has below methods
+* Queue is FIFO data structure.
+    * To add an item: add(e);
+    * To remove an item the first item: remove();
+    * To display the first item but does not remove: element();
+* Also, we have 3 methods which is corresponding to above methods. The different between these is the below methods return a special value.
+
+     * offer(e)
+     * poll()
+     * peek()
+
+
+### Assert
+* assert is a keyword in java which can used in java program for assertion
+
+
+### Path
+* Path is introduced as part of Java 7 and its package name is java.nio
+
+---------
+
+# Java 8
+### Lambda Expressions
+* In computer terms, Lambda Expressions are Anonymous functions
+
+### Functional Interface
+* A functional interface has a single abstract method (i.e. the one which not inheriated from Object class)
+* Prior to Java 8, it was known as "Single Abstract Method (SAM)" types
+E.g.: Runnable r = () -> System.out.println("This is a method implementation");
+
+Here (): It is a method signature
+	System.out.println("..."): It is method implementation
+	
+	

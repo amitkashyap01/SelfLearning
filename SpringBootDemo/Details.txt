@@ -109,7 +109,7 @@ Actuator
 	 	Info Endpoint
 	 		- Provides customizable point of information
  		
- 	JMX Functionalites
+ 	JMX Functionalities
  	---------------
 	 	Beans - Provides list of the all the beans in the current environment
 	 	Env -  Provides the listing of the state of the environment
@@ -174,6 +174,11 @@ void destroyMethod(){
 
 @Controller: 	Stereotype for presentation layer of an application. (Spring MVC apps)
 
+
+
+@Transactional : This annotation at class level makes all the public methods in that class transactional.
+
+
 ---
 ## Custom Annotation
 
@@ -194,3 +199,51 @@ public @interface RandomAnnotation{
 
 ApplicationContext appContext = new AnnotationConfigApplicationContext(AppConfig.class);
 
+
+---
+
+### Spring Expression Language
+Useful for manipulating and querying object graph at runtime.
+
+Functionalities:
+* Working with literal expressions
+* Working with regular expressions
+* Working with mathematical operators
+* Working with boolean operators
+* Working with relational operators
+* Invoking methods
+* Access and set properties
+
+
+```java
+	#{} -> Whatever the expression we put into braces, will be evaluated by as java expression
+	
+	e.g.
+	#{'Amit' + 'Kashyap'} -> Both the strings will be concatinated
+	
+	#{refMyDataSource.getMethod()} -> Here we are accessing getMethod() through refMyDataSource object.
+	
+	#{T(com.demo.MyDataSource).getMethod()} -> If the method is static, then we can use 'T'
+	
+	#{T(java.lang.Math).random()} -> Accessing static method random of Math class.
+	
+	#{T(java.lang.Math).random() * 10} -> Accessing static method random of Math class.
+	
+	
+```
+
+
+git stash show -p stash@{0} - This is to see the content of stash 0 without applying the changes.
+
+git stash apply stash@{0} - This is to apply specific stash changes
+
+git stash pop stash@{0} - To apply a stash and remove it from the stash list
+
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+
+
+ 

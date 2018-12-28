@@ -17,24 +17,24 @@ public class MyCommandRuuner implements CommandLineRunner{
 
 	@Autowired
 	private RoomRepository roomRepository;
-	
+
 	@Override
 	public void run(String... args) throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
-		
+
 		System.out.println("Inside CommandLineRunner");
 		//read json file data to String
 		List<Room> listOfRooms = mapper.readValue(new File("src/main/resources/data.json"), new TypeReference<List<Room>>(){});
-		
+
 		System.out.println("List of Rooms: "+listOfRooms);
-		
+
 		roomRepository.deleteAll();
-		
+
 		for (Room room : listOfRooms) {
 			roomRepository.save(room);
 			System.out.println("Loading: "+room);
 		}
-		
+
 	}
 
 }
