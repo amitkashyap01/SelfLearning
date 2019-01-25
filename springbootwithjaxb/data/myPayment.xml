@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.07">
+    <FIToFICstmrCdtTrf>
+        <GrpHdr>
+            <MsgId>1234ABCD</MsgId>
+        </GrpHdr>
+    </FIToFICstmrCdtTrf>
+</Document>
