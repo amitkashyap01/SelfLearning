@@ -5,6 +5,7 @@
     <classes>
       <class name="seleniumwork.MySeleniumTesting">
         <methods>
+          <include name="addingBankAccountTest"/>
           <include name="setup"/>
         </methods>
       </class> <!-- seleniumwork.MySeleniumTesting -->
