@@ -1,0 +1,10 @@
+{
+  "id" : 122,
+  "name" : "Amit",
+  "phone" : "1232212323",
+  "about" : "I am customer",
+  "age" : 12,
+  "balance" : 12.32,
+  "active" : true,
+  "joined" : 1547024708175
+}

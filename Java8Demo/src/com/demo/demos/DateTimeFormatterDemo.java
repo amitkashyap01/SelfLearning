@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.FormatStyle;
 import java.time.temporal.ChronoField;
-import java.util.Locale;
 
 public class DateTimeFormatterDemo {
 	public static void main(String[] args) {

@@ -32,7 +32,7 @@
 	}
 ```
 
-### Steam
+### Stream
 * Java 8 introduced a new API called Stream. This is used for traversing and filtering and aggregating Collections.
 * There are 2 kinds of Stream i.e. Sequential Stream and Parallel Stream
 * Sequential steam guarantees that each item will be processed in sequence i.e. one at time and the next.
@@ -157,4 +157,176 @@
 		DateTimeFormatter d = builder.toFormatter();
 		System.out.println(d.format(currentDT));
 
+```
+
+
+### ZonedDateTime
+* In order to represent timezoned DateTime, java 8 provides ZonedDateTime class.
+* Just like LocalDateTime, it is immutable and thread safe 
+
+```java
+			DateTimeFormatter formatter= DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);
+		
+		//Default is current time zone
+		LocalDateTime currentTime = LocalDateTime.now();
+		System.out.println(formatter.format(currentTime));
+		
+		//GMT+0 timezone
+		ZonedDateTime gmt = ZonedDateTime.now(ZoneId.of("GMT+0"));
+		System.out.println(formatter.format(gmt));
+		
+		//To find our all the available ZoneIds
+		Set<String> listOfTimeZones = ZoneId.getAvailableZoneIds();
+		
+		Predicate<String> pred = tz -> tz.contains("Kol");
+		
+		listOfTimeZones
+			.stream()
+			.filter(pred)
+			.forEach(z -> System.out.println(z));
+		
+		
+		//To get the specific timezone time
+		ZonedDateTime kolkata = ZonedDateTime.now(ZoneId.of("Asia/Kolkata"));
+		System.out.println(formatter.format(kolkata));
+```
+
+
+## 	Using JavaScript with the Java Virtual Machine
+* Java 8 introduced a brand new Java Script Engine called "Nashorn". The earlier java script engine was Rhino.
+
+* We can access this JavaScript engine by typing "jjs" on command prompt.
+
+```js
+	c:\Users\amitk> jjs
+	jjs> var myVar="Amit"
+	jjs> myVar
+	Amit
+	
+	// java code to get the content of an URL
+	jjs> var input = new java.util.Scanner(new java.net.URL("http://services.explorecalifornia.org/json/tours.php").openStream());
+	
+	//By default, scanner class breaks contents with delimiter commo (,). We can change it. 
+	jjs> input.useDelimiter("$")
+	jjs> var contents = input.next()
+	jjs> coontents
+	
+ 	//Contents will be printed here
+
+```
+
+### Running JavaScript from Java
+
+```java
+	public class JavaScriptFromJava {
+		
+		public static void main(String[] args) throws ScriptException {
+			
+			ScriptEngineManager engineManager = new ScriptEngineManager();
+			ScriptEngine jsEngine = engineManager.getEngineByName("nashorn");
+			
+			String script = "var welcome='Hello';"
+					+ "welcome += ', Amit'; "
+					+ "welcome;";
+			
+			Object result = jsEngine.eval(script);
+			System.out.println(result);
+		}
+	}
+
+```
+
+### Running JavaScript file from Java
+
+```java
+public class JavaScriptFileFromJava {
+	
+	public static void main(String[] args) {
+		
+		ScriptEngineManager engineManager = new ScriptEngineManager();
+		ScriptEngine jsEngine = engineManager.getEngineByName("nashorn");
+		
+		
+		try {
+			FileReader fileReader = new FileReader("scripts/script.js");
+			
+			Object result = jsEngine.eval(fileReader);
+			
+			System.out.println(result);
+		} catch (ScriptException se) {
+			System.out.println("Script Exception:"+se);
+		} catch (FileNotFoundException fe) {
+			System.out.println("Script file is not found");
+		}
+	}
+}
+
+```
+
+### Using String.join() Method
+
+```java
+		// Here, first argument is delimiter and after  this, we can add as many strings as we want to concat
+		String myJoinedStrings = String.join(":", "Amit", "Kumar", "Kashyap");
+		System.out.println(myJoinedStrings);
+		
+		//We can also join elements of any iterable object
+		String[] myStringArray = {"Amit","Kumar","Kashyap"};
+		String joinedElementsOfArray = String.join("#", myStringArray);
+		System.out.println(joinedElementsOfArray);
+```
+### StringJoiner Class
+* StingJoiner class is a new class introduced in Java8. It is also used to join strings
+
+```java
+		//Creating a StringJoiner
+		StringJoiner joiner = new StringJoiner(" # ");
+		joiner.add("FirstItem");
+		joiner.add("SecondItem");
+		joiner.add("ThirdItem");
+		joiner.add("ForuthItem");
+		joiner.add("FifthItem");
+	
+		System.out.println(joiner);
+	
+		//Merging two StringJoiner
+		StringJoiner joiner2 = new StringJoiner(" , ");
+		joiner2.add("SixthItem");
+		joiner2.add("SeventhItem");
+		joiner.merge(joiner2);
+		System.out.println(joiner);
+		
+		//Working with Collections
+		Set<String> setOfItems = new HashSet<>();
+		setOfItems.add("Item No 1");
+		setOfItems.add("Item No 2");
+		setOfItems.add("Item No 3");
+		setOfItems.add("Item No 4");
+		
+		StringJoiner joiner3 = new StringJoiner(" * ");
+	
+		setOfItems.forEach(s -> joiner3.add(s));
+		System.out.println(joiner3);
+
+```
+
+### File as a stream
+* Below program is to search for a text in a file.
+
+```java
+		Path path = FileSystems.getDefault().getPath("files/mynotes.txt");
+		
+		String searchText = "My name is Amit Kashyap";
+		
+		try (Stream<String> stream = Files.lines(path)){
+			Optional<String> foundString = stream.filter(s -> s.contains(searchText)).findFirst();
+			
+			if(foundString.isPresent())
+				System.out.println(foundString.get());
+			else
+				System.out.println("Not Found");
+			
+		} catch (Exception e) {
+			System.out.println("Exception Occured"+e);
+		}
 ```
