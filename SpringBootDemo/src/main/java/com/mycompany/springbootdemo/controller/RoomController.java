@@ -13,7 +13,7 @@ import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 
 @Controller
-@RequestMapping ("/myRooms")
+@RequestMapping ("/rooms")
 public class RoomController {
 	
 //	@Autowired
