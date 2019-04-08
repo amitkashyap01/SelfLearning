@@ -34,6 +34,30 @@
 
 ### Stream
 * Java 8 introduced a new API called Stream. This is used for traversing and filtering and aggregating Collections.
+* A stream pipeline consists of a source, followed by zero or more intermediate operations; and a terminal operation.
+* Stream operations are either intermediate or terminal.
+        * Intermediate Operations: such as filter, map or sort return a stream so we can chain multiple intermediate operations. Multiple intermediate operations are allowed.
+        * Terminal Operations: such as forEach, collect or reduce are either void or return a non-stream results. Only one terminal operation is allowed.
+        
+* Intermediate Operations include
+        * filter()
+        * anyMatch()
+        * distinct()
+        * findFirst()
+        * flatmap()
+        * map()
+        * skip
+        * sorted
+
+* Terminal Operations 
+        * forEach() applies the same function to each element
+        * collect saves the elements into a collection
+        * other options **reduce** the stream to a single summary element
+               * count()
+               * max()
+               * min()
+               * reduce()
+               * summaryStatistics()
 * There are 2 kinds of Stream i.e. Sequential Stream and Parallel Stream
 * Sequential steam guarantees that each item will be processed in sequence i.e. one at time and the next.
 * Parallel Stream is used for multi core CPUs when items are processed in parallel hence sequence is not guaranteed.  
