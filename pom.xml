@@ -17,7 +17,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<!-- Spring Framework -->
-		<spring-framework.version>5.1.1.RELEASE</spring-framework.version>
+		<spring-framework.version>5.1.2.RELEASE</spring-framework.version>
 
 		<!-- MySql Java Connector  -->
 		<mysql-connector-java>8.0.11</mysql-connector-java>
